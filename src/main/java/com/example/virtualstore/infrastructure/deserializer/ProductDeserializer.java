@@ -14,14 +14,17 @@ public class ProductDeserializer extends JsonDeserializer<ProductWrapper> {
     @Override
     public ProductWrapper deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
-        JsonNode wrapperNode = jsonNode.get("product");
-        int id = wrapperNode.get("id").asInt();
-        String name = wrapperNode.get("name").asText();
-        double price = wrapperNode.get("price").asDouble();
-
-        Product product = new Product(id, name, price);
-        ProductWrapper wrapper = new ProductWrapper(product);
-
-        return wrapper;
+        return deserialize(jsonNode);
     }
+
+    public ProductWrapper deserialize(JsonNode jsonNode) {
+        int id = jsonNode.get("id").asInt();
+        String name = jsonNode.get("name").asText();
+        double price = jsonNode.get("price").asDouble();
+        Product product = new Product(id, name, price);
+        return new ProductWrapper(product);
+
+    }
+
+
 }

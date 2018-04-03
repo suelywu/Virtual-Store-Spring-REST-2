@@ -13,15 +13,17 @@ public class ProductSerializer extends JsonSerializer<ProductWrapper> {
     @Override
     public void serialize(ProductWrapper productWrapper, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         Product product = productWrapper.getProduct();
+        jsonGenerator = serialize(productWrapper, jsonGenerator);
+    }
 
-        jsonGenerator.writeStartObject();
-        jsonGenerator.writeFieldName("product");
+
+    public JsonGenerator serialize(ProductWrapper productWrapper, JsonGenerator jsonGenerator) throws IOException {
+        Product product = productWrapper.getProduct();
         jsonGenerator.writeStartObject();
         jsonGenerator.writeObjectField("id", product.getId());
         jsonGenerator.writeObjectField("name", product.getName());
         jsonGenerator.writeObjectField("price", product.getPrice());
         jsonGenerator.writeEndObject();
-        jsonGenerator.writeEndObject();
-
+        return jsonGenerator;
     }
 }

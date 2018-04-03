@@ -1,0 +1,13 @@
+Problema atual:
+
+
+method: GET
+url: http://localhost:8080/store
+
+{
+    "timestamp": "2018-04-03T21:25:50.475+0000",
+    "status": 500,
+    "error": "Internal Server Error",
+    "message": "Could not write JSON: com.example.virtualstore.infrastructure.wrapper.ProductHolderWrapper cannot be cast to com.example.virtualstore.infrastructure.wrapper.ProductWrapper; nested exception is com.fasterxml.jackson.databind.JsonMappingException: com.example.virtualstore.infrastructure.wrapper.ProductHolderWrapper cannot be cast to com.example.virtualstore.infrastructure.wrapper.ProductWrapper (through reference chain: java.util.LinkedList[0])",
+    "path": "/store"
+}

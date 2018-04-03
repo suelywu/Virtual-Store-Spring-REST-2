@@ -12,8 +12,8 @@ public class ProductHolder {
         this.quantity = quantity;
     }
 
-    public int getProductId() {
-        return product.getId();
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
