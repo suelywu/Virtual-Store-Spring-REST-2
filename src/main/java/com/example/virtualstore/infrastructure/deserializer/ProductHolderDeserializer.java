@@ -16,16 +16,25 @@ public class ProductHolderDeserializer extends JsonDeserializer<ProductHolderWra
     @Override
     public ProductHolderWrapper deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
-        ProductDeserializer productDeserializer = new ProductDeserializer();
 
-        JsonNode productWrapperNode = jsonNode.get("product");
-        ProductWrapper productWrapper = productDeserializer.deserialize(productWrapperNode);
+        JsonNode prodHolderNode = jsonNode.get("item");
+
+        return deserialize(prodHolderNode);
+
+    }
+
+    public ProductHolderWrapper deserialize(JsonNode prodHolderNode) {
+
+        JsonNode productNode = prodHolderNode.get("product");
+        ProductDeserializer productDeserializer = new ProductDeserializer();
+        ProductWrapper productWrapper = productDeserializer.deserialize(productNode);
         Product product = productWrapper.getProduct();
 
-        int quantity = jsonNode.get("quantity").asInt();
+        int quantity = prodHolderNode.get("quantity").asInt();
 
         ProductHolder productHolder = new ProductHolder(product, quantity);
 
         return new ProductHolderWrapper(productHolder);
+
     }
 }

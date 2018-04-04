@@ -3,9 +3,7 @@ package com.example.virtualstore.application.controller;
 import com.example.virtualstore.infrastructure.wrapper.ProductHolderWrapper;
 import com.example.virtualstore.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +20,16 @@ public class StoreController {
     @RequestMapping(value = "/store", method = RequestMethod.GET)
     public List<ProductHolderWrapper> getStore() {
         return storeService.getStore();
+    }
+
+    @RequestMapping(value = "/store/{productId}", method = RequestMethod.GET)
+    public ProductHolderWrapper getSpecificProduct(@PathVariable int productId) {
+        return storeService.getSpecificProduct(productId);
+    }
+
+    @RequestMapping(value = "/store/has", method = RequestMethod.GET)
+    public boolean hasEnough(@RequestParam int productId, @RequestParam int quantity) {
+        return storeService.hasEnough(productId, quantity);
     }
 
 

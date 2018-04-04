@@ -12,24 +12,30 @@ import java.io.IOException;
 public class ProductHolderSerializer extends JsonSerializer<ProductHolderWrapper> {
     @Override
     public void serialize(ProductHolderWrapper productHolderWrapper, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator = serialize(productHolderWrapper, jsonGenerator);
+    }
+
+
+    public JsonGenerator serialize(ProductHolderWrapper productHolderWrapper, JsonGenerator jsonGenerator) throws IOException {
         ProductHolder productHolder = productHolderWrapper.getProductHolder();
+
+        jsonGenerator.writeStartObject();
+
+        jsonGenerator.writeFieldName("item");
+        jsonGenerator.writeStartObject();
+
         ProductWrapper productWrapper = new ProductWrapper(productHolder.getProduct());
         ProductSerializer productSerializer = new ProductSerializer();
-        jsonGenerator.writeStartObject();
-        jsonGenerator.writeFieldName("productHolder");
-        jsonGenerator.writeStartObject();
-        // tenho Product product e int quantity
-        // quantity consigo inserir diretamente
-        // e product?
-            // tentar escrever um objeto product wrapper
         jsonGenerator.writeFieldName("product");
         jsonGenerator = productSerializer.serialize(productWrapper, jsonGenerator);
+
         jsonGenerator.writeObjectField("quantity", productHolder.getQuantity());
+        jsonGenerator.writeObjectField("subtotal", String.format("R$ %.2f", productHolder.getSubtotal()));
 
         jsonGenerator.writeEndObject();
+
         jsonGenerator.writeEndObject();
 
-
-
+        return jsonGenerator;
     }
 }

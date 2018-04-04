@@ -32,6 +32,9 @@ public class StoreService {
         return productHolderWrappers;
     }
 
+    public ProductHolderWrapper getSpecificProduct(int productId) {
+        return new ProductHolderWrapper(storeRepository.findByProductId(productId));
+    }
 
     public boolean hasEnough(int productId, int quantity) {
         Product product = productRepository.findById(productId);

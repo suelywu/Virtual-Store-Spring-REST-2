@@ -14,12 +14,10 @@ import java.util.Optional;
 public class StoreRepository {
 
     private List<ProductHolder> productHolders;
-    private ProductRepository productRepository;
 
     @Autowired
     public StoreRepository(ProductRepository productRepository) {
         productHolders = new LinkedList<>();
-        this.productRepository = productRepository;
         for (int i = 1; i <= 4; i++) {
             Product product = productRepository.findById(i);
             ProductHolder productHolder = new ProductHolder(product, 20);
@@ -31,8 +29,12 @@ public class StoreRepository {
         return Collections.unmodifiableList(productHolders);
     }
 
+    private Optional<ProductHolder> getProductHolderOpt(int productId) {
+        return productHolders.stream().filter(productHolder -> productHolder.getProduct().getId() == productId).findFirst();
+    }
+
     private Optional<ProductHolder> getProductHolderOpt(Product product) {
-        return productHolders.stream().filter(productHolder -> productHolder.getProduct().getId() == product.getId()).findFirst();
+        return getProductHolderOpt(product.getId());
     }
 
     public boolean hasEnough(Product product, int quantity) {
@@ -72,4 +74,8 @@ public class StoreRepository {
         productHolderOpt.ifPresent(productHolder1 -> productHolders.remove(productHolder1));
     }
 
+    public ProductHolder findByProductId(int productId) {
+        Optional<ProductHolder> productHolderOpt = getProductHolderOpt(productId);
+        return productHolderOpt.orElseGet(() -> new ProductHolder(new Product(0, "", 0), 0));
+    }
 }

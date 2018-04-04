@@ -21,7 +21,7 @@ public class ProductController {
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public ProductWrapper getProduct(@PathVariable int id) {
-        return new ProductWrapper(productService.getProduct(id));
+        return productService.getProduct(id);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)

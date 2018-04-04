@@ -28,12 +28,12 @@ public class ProductService {
         return productWrappers;
     }
 
-    public Product getProduct(int id) {
-        return productRepository.findById(id);
+    public ProductWrapper getProduct(int id) {
+        return new ProductWrapper(productRepository.findById(id));
     }
 
-    public Product getProduct(String name) {
-        return productRepository.findByName(name);
+    public ProductWrapper getProduct(String name) {
+        return new ProductWrapper(productRepository.findByName(name));
     }
 
     public void registerNewProduct(String name, double price) {

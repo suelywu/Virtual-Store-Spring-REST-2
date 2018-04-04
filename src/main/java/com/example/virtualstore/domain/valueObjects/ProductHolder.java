@@ -1,9 +1,10 @@
 package com.example.virtualstore.domain.valueObjects;
 
 import com.example.virtualstore.domain.entity.Product;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 public class ProductHolder {
-
+    @JsonUnwrapped
     private final Product product;
     private int quantity;
 
