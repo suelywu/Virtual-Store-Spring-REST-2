@@ -8,17 +8,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
 public class ShoppingCart {
 
-    List<ProductHolder> productHolders;
+    private final int clientId;
+    private List<ProductHolder> productHolders;
 
-    public ShoppingCart() {
+    public ShoppingCart(int clientId) {
+        this.clientId = clientId;
         this.productHolders = new LinkedList<>();
     }
 
     public List<ProductHolder> getProductHolders() {
         return Collections.unmodifiableList(productHolders);
+    }
+
+    public int getClientId() {
+        return clientId;
     }
 
     public void addProduct(ProductHolder productHolder) {
@@ -33,6 +38,12 @@ public class ShoppingCart {
             return;
         }
         productHolder.increaseQuantity(quantity);
+    }
+
+    public boolean delProduct(ProductHolder productHolder) {
+        Product product = productHolder.getProduct();
+        int quantity = productHolder.getQuantity();
+        return delProduct(product.getId(), quantity);
     }
 
     public boolean delProduct(int productId, int quantity) {
@@ -56,4 +67,15 @@ public class ShoppingCart {
         return productHolderOpt.orElse(null);
     }
 
+    public void clear() {
+        this.productHolders = new LinkedList<>();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Integer) {
+            return this.clientId == (int) obj;
+        }
+        return super.equals(obj);
+    }
 }

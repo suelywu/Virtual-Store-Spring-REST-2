@@ -1,8 +1,8 @@
-package com.example.virtualstore.application.controller;
+package com.example.virtualstore.ui.controller;
 
 import com.example.virtualstore.domain.entity.Product;
 import com.example.virtualstore.infrastructure.wrapper.ProductWrapper;
-import com.example.virtualstore.service.ProductService;
+import com.example.virtualstore.application.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

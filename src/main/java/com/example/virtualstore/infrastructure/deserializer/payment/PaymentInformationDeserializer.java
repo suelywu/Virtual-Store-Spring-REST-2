@@ -1,10 +1,10 @@
-package com.example.virtualstore.infrastructure.deserializer;
+package com.example.virtualstore.infrastructure.deserializer.payment;
 
 import com.example.virtualstore.domain.valueObjects.payment.PaymentInfoType;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentInformation;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentOption;
-import com.example.virtualstore.infrastructure.wrapper.BarCodeWrapper;
-import com.example.virtualstore.infrastructure.wrapper.PaymentInfoWrapper;
+import com.example.virtualstore.infrastructure.wrapper.payment.BarCodeWrapper;
+import com.example.virtualstore.infrastructure.wrapper.payment.PaymentInformationWrapper;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -15,14 +15,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentInfoDeserializer extends JsonDeserializer<PaymentInfoWrapper> {
+public class PaymentInformationDeserializer extends JsonDeserializer<PaymentInformationWrapper> {
     @Override
-    public PaymentInfoWrapper deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public PaymentInformationWrapper deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
         return deserialize(jsonNode.get("payment"));
     }
 
-    public PaymentInfoWrapper deserialize(JsonNode paymentNode) {
+    public PaymentInformationWrapper deserialize(JsonNode paymentNode) {
         PaymentOption paymentOption = PaymentOption.valueOf(paymentNode.get("option").asText());
         Map<PaymentInfoType, Object> information = null;
         switch (paymentOption) {
@@ -34,7 +34,7 @@ public class PaymentInfoDeserializer extends JsonDeserializer<PaymentInfoWrapper
                 break;
         }
         PaymentInformation paymentInformation = new PaymentInformation(paymentOption, information);
-        return new PaymentInfoWrapper(paymentInformation);
+        return new PaymentInformationWrapper(paymentInformation);
     }
 
     private Map<PaymentInfoType, Object> deserializeInformationBillet(JsonNode billetInfoNode) {

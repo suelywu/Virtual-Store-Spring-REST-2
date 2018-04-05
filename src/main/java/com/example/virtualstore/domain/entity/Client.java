@@ -16,6 +16,12 @@ public class Client {
         this.orders = new LinkedList<>();
     }
 
+    public Client(int id, String name, List<Order>orders) {
+        this.id = id;
+        this.name = name;
+        this.orders = orders;
+    }
+
     public int getId() {
         return id;
     }

@@ -20,6 +20,8 @@ public class ShoppingCartSerializer extends JsonSerializer<ShoppingCartWrapper> 
 
         jsonGenerator.writeStartObject();
 
+        jsonGenerator.writeObjectField("clientId", shoppingCart.getClientId());
+
         jsonGenerator.writeFieldName("selectedProducts");
         jsonGenerator.writeStartArray();
         ProductHolderSerializer productHolderSerializer = new ProductHolderSerializer();

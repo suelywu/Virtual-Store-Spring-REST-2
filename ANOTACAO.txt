@@ -1,11 +1,10 @@
-Para shopping cart falta ainda a função de finalizar a compra
+Estou fazendo:
 
+ShoppingCartController
+    method finishShopping()
 
-Parei em ClientSerializer
-- fazer serializacao na parte de orders
-
+Ver de novo:
+    serializacao/deserializacao de payment no order
 
 
 Problema atual:
-
-

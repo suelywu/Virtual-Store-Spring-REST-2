@@ -1,11 +1,14 @@
-package com.example.virtualstore.service;
+package com.example.virtualstore.application.service;
 
 import com.example.virtualstore.domain.entity.Order;
-import com.example.virtualstore.infrastructure.repository.OrderRepository;
+import com.example.virtualstore.domain.repository.OrderRepository;
+import com.example.virtualstore.domain.valueObjects.ProductHolder;
+import com.example.virtualstore.domain.valueObjects.payment.Payment;
 import com.example.virtualstore.infrastructure.wrapper.OrderWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class OrderService {
         return orderWrappers;
     }
 
-    public OrderWrapper getOrder(int id) {
+    public OrderWrapper getOrderWrapper(int id) {
         return new OrderWrapper(orderRepository.findById(id));
     }
 
@@ -39,5 +42,12 @@ public class OrderService {
             orderWrappers.add(new OrderWrapper(order));
         }
         return orderWrappers;
+    }
+
+    public int addNewOrder(int clientId, List<ProductHolder> productHolders, Payment payment) {
+        int id = orderRepository.getNextIdToUse();
+        Order order = new Order(id, clientId, LocalDateTime.now(), productHolders, payment);
+        orderRepository.save(order);
+        return id;
     }
 }

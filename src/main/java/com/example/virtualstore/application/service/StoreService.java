@@ -1,9 +1,9 @@
-package com.example.virtualstore.service;
+package com.example.virtualstore.application.service;
 
 import com.example.virtualstore.domain.entity.Product;
 import com.example.virtualstore.domain.valueObjects.ProductHolder;
-import com.example.virtualstore.infrastructure.repository.ProductRepository;
-import com.example.virtualstore.infrastructure.repository.StoreRepository;
+import com.example.virtualstore.domain.repository.ProductRepository;
+import com.example.virtualstore.domain.repository.StoreRepository;
 import com.example.virtualstore.infrastructure.wrapper.ProductHolderWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +39,11 @@ public class StoreService {
     public boolean hasEnough(int productId, int quantity) {
         Product product = productRepository.findById(productId);
         return storeRepository.hasEnough(product, quantity);
+    }
+
+    public void decreaseProdQuantity(ProductHolderWrapper productHolderWrapper) {
+        ProductHolder productHolder = productHolderWrapper.getProductHolder();
+        storeRepository.decreaseProdQuantity(productHolder);
     }
 
     public void decreaseProdQuantity(int productId, int quantity) {

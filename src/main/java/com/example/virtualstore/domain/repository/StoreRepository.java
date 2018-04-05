@@ -1,4 +1,4 @@
-package com.example.virtualstore.infrastructure.repository;
+package com.example.virtualstore.domain.repository;
 
 import com.example.virtualstore.domain.entity.Product;
 import com.example.virtualstore.domain.valueObjects.ProductHolder;
@@ -44,6 +44,12 @@ public class StoreRepository {
             return productHolder.getQuantity() >= quantity;
         }
         return false;
+    }
+
+    public void decreaseProdQuantity(ProductHolder productHolder) {
+        Product product = productHolder.getProduct();
+        int quantity = productHolder.getQuantity();
+        decreaseProdQuantity(product, quantity);
     }
 
     public void decreaseProdQuantity(Product product, int quantity) {

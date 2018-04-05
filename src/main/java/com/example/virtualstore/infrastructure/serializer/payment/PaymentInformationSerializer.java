@@ -1,12 +1,11 @@
-package com.example.virtualstore.infrastructure.serializer;
+package com.example.virtualstore.infrastructure.serializer.payment;
 
 import com.example.virtualstore.domain.valueObjects.payment.BarCode;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentInfoType;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentInformation;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentOption;
-import com.example.virtualstore.infrastructure.serializer.BarCodeSerializer;
-import com.example.virtualstore.infrastructure.wrapper.BarCodeWrapper;
-import com.example.virtualstore.infrastructure.wrapper.PaymentInfoWrapper;
+import com.example.virtualstore.infrastructure.wrapper.payment.BarCodeWrapper;
+import com.example.virtualstore.infrastructure.wrapper.payment.PaymentInformationWrapper;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -14,10 +13,10 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.util.Map;
 
-public class PaymentInfoSerializer extends JsonSerializer<PaymentInfoWrapper> {
+public class PaymentInformationSerializer extends JsonSerializer<PaymentInformationWrapper> {
     @Override
-    public void serialize(PaymentInfoWrapper paymentInfoWrapper, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator = serialize(paymentInfoWrapper.getPaymentInformation(), jsonGenerator);
+    public void serialize(PaymentInformationWrapper paymentInformationWrapper, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator = serialize(paymentInformationWrapper.getPaymentInformation(), jsonGenerator);
     }
 
     public JsonGenerator serialize(PaymentInformation paymentInformation, JsonGenerator jsonGenerator) throws IOException {

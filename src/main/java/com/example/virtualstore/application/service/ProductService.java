@@ -1,7 +1,7 @@
-package com.example.virtualstore.service;
+package com.example.virtualstore.application.service;
 
 import com.example.virtualstore.domain.entity.Product;
-import com.example.virtualstore.infrastructure.repository.ProductRepository;
+import com.example.virtualstore.domain.repository.ProductRepository;
 import com.example.virtualstore.infrastructure.wrapper.ProductWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    public ProductService(final ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -54,4 +54,7 @@ public class ProductService {
         productRepository.remove(product);
     }
 
+    public boolean hasProduct(int id) {
+        return productRepository.contains(id);
+    }
 }

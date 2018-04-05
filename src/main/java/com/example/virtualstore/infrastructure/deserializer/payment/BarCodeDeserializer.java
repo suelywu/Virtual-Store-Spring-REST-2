@@ -1,7 +1,7 @@
-package com.example.virtualstore.infrastructure.deserializer;
+package com.example.virtualstore.infrastructure.deserializer.payment;
 
 import com.example.virtualstore.domain.valueObjects.payment.BarCode;
-import com.example.virtualstore.infrastructure.wrapper.BarCodeWrapper;
+import com.example.virtualstore.infrastructure.wrapper.payment.BarCodeWrapper;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -20,7 +20,7 @@ public class BarCodeDeserializer extends JsonDeserializer<BarCodeWrapper> {
     }
 
     public BarCodeWrapper deserialize(JsonNode jsonNode) {
-        String finalCode = jsonNode.get("code").asText();
+        String finalCode = jsonNode.asText();
         List<String> codes = Arrays.asList(finalCode.split(" "));
         BarCode barCode = new BarCode(0);
         barCode.setCode(codes);

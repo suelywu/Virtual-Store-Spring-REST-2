@@ -5,8 +5,9 @@ import com.example.virtualstore.domain.valueObjects.ProductHolder;
 import com.example.virtualstore.domain.valueObjects.payment.Payment;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentFactory;
 import com.example.virtualstore.domain.valueObjects.payment.PaymentInformation;
+import com.example.virtualstore.infrastructure.deserializer.payment.PaymentInformationDeserializer;
 import com.example.virtualstore.infrastructure.wrapper.OrderWrapper;
-import com.example.virtualstore.infrastructure.wrapper.PaymentInfoWrapper;
+import com.example.virtualstore.infrastructure.wrapper.payment.PaymentInformationWrapper;
 import com.example.virtualstore.infrastructure.wrapper.ProductHolderWrapper;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -59,10 +60,10 @@ public class OrderDeserializer extends JsonDeserializer<OrderWrapper> {
     }
 
     private Payment deserializePayment(JsonNode paymentNode) {
-        PaymentInfoDeserializer paymentInfoDeserializer = new PaymentInfoDeserializer();
-        PaymentInfoWrapper paymentInfoWrapper = paymentInfoDeserializer.deserialize(paymentNode);
-        PaymentInformation paymentInformation = paymentInfoWrapper.getPaymentInformation();
+        PaymentInformationDeserializer paymentInformationDeserializer = new PaymentInformationDeserializer();
+        PaymentInformationWrapper paymentInformationWrapper = paymentInformationDeserializer.deserialize(paymentNode);
+        PaymentInformation paymentInformation = paymentInformationWrapper.getPaymentInformation();
         PaymentFactory paymentFactory = new PaymentFactory();
-        return paymentFactory.getPayment(paymentInformation.getPaymentOption(), paymentInformation);
+        return paymentFactory.getPayment(paymentInformation);
     }
 }

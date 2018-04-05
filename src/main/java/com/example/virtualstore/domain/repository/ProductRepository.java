@@ -1,4 +1,4 @@
-package com.example.virtualstore.infrastructure.repository;
+package com.example.virtualstore.domain.repository;
 
 import com.example.virtualstore.domain.entity.Product;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Component
 public class ProductRepository {
 
-    List<Product> products;
+    private List<Product> products;
 
     public ProductRepository() {
         products = new LinkedList<>();
@@ -59,6 +59,10 @@ public class ProductRepository {
             Product product = productOpt.get();
             products.remove(product);
         }
+    }
+
+    public boolean contains(int id) {
+        return products.stream().anyMatch(product -> product.getId() == id);
     }
 
 }

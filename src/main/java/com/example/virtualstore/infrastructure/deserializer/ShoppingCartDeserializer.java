@@ -22,6 +22,9 @@ public class ShoppingCartDeserializer extends JsonDeserializer<ShoppingCartWrapp
         ProductHolderDeserializer productHolderDeserializer = new ProductHolderDeserializer();
 
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
+
+        int clientId = jsonNode.get("clientId").asInt();
+
         JsonNode selectedProdNode = jsonNode.get("selectProducts");
 
         JsonNode prodHolderNode = selectedProdNode.get("item");
@@ -30,7 +33,7 @@ public class ShoppingCartDeserializer extends JsonDeserializer<ShoppingCartWrapp
             productHolders.add(productHolderWrapper.getProductHolder());
         }
 
-        ShoppingCart shoppingCart = new ShoppingCart();
+        ShoppingCart shoppingCart = new ShoppingCart(clientId);
         productHolders.forEach(shoppingCart::addProduct);
 
         return new ShoppingCartWrapper(shoppingCart);

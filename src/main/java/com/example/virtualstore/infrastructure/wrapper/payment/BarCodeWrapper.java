@@ -1,8 +1,8 @@
-package com.example.virtualstore.infrastructure.wrapper;
+package com.example.virtualstore.infrastructure.wrapper.payment;
 
 import com.example.virtualstore.domain.valueObjects.payment.BarCode;
-import com.example.virtualstore.infrastructure.deserializer.BarCodeDeserializer;
-import com.example.virtualstore.infrastructure.serializer.BarCodeSerializer;
+import com.example.virtualstore.infrastructure.deserializer.payment.BarCodeDeserializer;
+import com.example.virtualstore.infrastructure.serializer.payment.BarCodeSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
